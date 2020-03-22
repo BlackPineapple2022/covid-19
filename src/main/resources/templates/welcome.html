@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>WORLD COVID-19 ONLINE STAT</title>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">stayhome.by</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <h1>#STAYHOME</h1>
+        <H2>WOLD CORONAVIRUS COVID-19 STATS</H2>
+    </div>
+
+    <table>
+
+        <tr>
+            <td>COUNTRY:</td>
+            <td><span th:text="${all.get().getCountry().getName()}"/></td>
+        </tr>
+
+        <tr>
+            <td>CONFIRMED:</td>
+            <td><span th:text="${all.get().getConfirmed()}"/></td>
+        </tr>
+
+        <tr>
+            <td>DEATHS:</td>
+            <td><span th:text="${all.get().getDeath()}"/></td>
+        </tr>
+
+        <tr>
+            <td>RECOVERED:</td>
+            <td><span th:text="${all.get().getRecovered()}"/></td>
+        </tr>
+
+        </table>
+
+</main>
+<!-- /.container -->
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</body>
+</html>
