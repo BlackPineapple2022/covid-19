@@ -1,53 +1,412 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-    <title>WORLD COVID-19 ONLINE STAT</title>
+    <title>WORLD COVID-19 ONLINE STATS</title>
 
     <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
 
 </head>
 
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">stayhome.by</a>
+    <a class="navbar-brand" th:href="@{/}">STAYHOME.BY | COVID-19 CORONAVIRUS PANDEMIC ONLINE INFO </a>
 </nav>
 
 <main role="main" class="container">
 
-    <div class="starter-template">
-        <h1>#STAYHOME</h1>
-        <H2>WOLD CORONAVIRUS COVID-19 STATS</H2>
+    <br/>
+    <br/>
+
+    <br/>
+    <br/>
+    <div style="font-size: 40px; text-align: center"> Coronavirus (COVID-19) statistic</div>
+    <div style="font-size: 60px; text-align: center"><b> [[${stats.getCountry().getName()}]]</b></div>
+    <br/>
+    <br/>
+    <table class="table text-center border">
+        <thead>
+        <tr>
+            <td><span style="font-size: 24px">Country</span></td>
+            <td><span style="font-size: 24px" th:text="${stats.getCountry().getName()}"></span></td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td><span style="font-size: 24px">Total confirmed</span></td>
+            <td><span style="font-size: 24px" th:text="${stats.getConfirmed()}"></span></td>
+        </tr>
+
+        <tr>
+            <td><span style="font-size: 24px; color: red">Total deaths</span></td>
+            <td><span style="font-size: 24px; color: red" th:text="${stats.getDeath()}"></span></td>
+        </tr>
+
+        <tr>
+            <td><span style="font-size: 24px; color: green">Total recovered</span></td>
+            <td><span style="color: green; font-size: 24px" th:text="${stats.getRecovered()}"></span></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <br/>
+    <br/>
+    <div style="text-align: center">
+
+        <form method="POST" action="/">
+            <select id="countryName" name="countryName" >
+                <option th:each="country:${countries}"><span th:text="${country.getName()}"></span>
+                </option>
+            </select>
+            <button class="button" type="submit">
+                GO
+            </button>
+        </form>
+
     </div>
 
-    <table>
+    <br/>
+    <br/>
 
-        <tr>
-            <td>COUNTRY:</td>
-            <td><span th:text="${all.get().getCountry().getName()}"/></td>
-        </tr>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script th:inline="javascript">
 
-        <tr>
-            <td>CONFIRMED:</td>
-            <td><span th:text="${all.get().getConfirmed()}"/></td>
-        </tr>
+        var da0 = [[${dates.get(0)}]];
+        var da1 = [[${dates.get(1)}]];
+        var da2 = [[${dates.get(2)}]];
+        var da3 = [[${dates.get(3)}]];
+        var da4 = [[${dates.get(4)}]];
+        var da5 = [[${dates.get(5)}]];
+        var da6 = [[${dates.get(6)}]];
+        var da7 = [[${dates.get(7)}]];
+        var da8 = [[${dates.get(8)}]];
+        var da9 = [[${dates.get(9)}]];
+        var da10 = [[${dates.get(10)}]];
+        var da11 = [[${dates.get(11)}]];
+        var da12 = [[${dates.get(12)}]];
+        var da13 = [[${dates.get(13)}]];
 
-        <tr>
-            <td>DEATHS:</td>
-            <td><span th:text="${all.get().getDeath()}"/></td>
-        </tr>
+        var c0 = [[${confirmed.get(0)}]];
+        var c1 = [[${confirmed.get(1)}]];
+        var c2 = [[${confirmed.get(2)}]];
+        var c3 = [[${confirmed.get(3)}]];
+        var c4 = [[${confirmed.get(4)}]];
+        var c5 = [[${confirmed.get(5)}]];
+        var c6 = [[${confirmed.get(6)}]];
+        var c7 = [[${confirmed.get(7)}]];
+        var c8 = [[${confirmed.get(8)}]];
+        var c9 = [[${confirmed.get(9)}]];
+        var c10 = [[${confirmed.get(10)}]];
+        var c11 = [[${confirmed.get(11)}]];
+        var c12 = [[${confirmed.get(12)}]];
+        var c13 = [[${confirmed.get(13)}]];
 
-        <tr>
-            <td>RECOVERED:</td>
-            <td><span th:text="${all.get().getRecovered()}"/></td>
-        </tr>
+        google.charts.load('current', {'packages': ['bar']});
+        google.charts.setOnLoadCallback(drawChart);
 
-        </table>
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
 
+                ['Date', 'Total cases'],
+                [da13, c13],
+                [da12, c12],
+                [da11, c11],
+                [da10, c10],
+                [da9, c9],
+                [da8, c8],
+                [da7, c7],
+                [da6, c6],
+                [da5, c5],
+                [da4, c4],
+                [da3, c3],
+                [da2, c2],
+                [da1, c1],
+                [da0, c0]
+            ]);
+
+
+            var options = {
+                chart: {
+                    title: 'Covid-19 total confirmed cases graph',
+                    subtitle: da13 + '-' + da0,
+                },
+                colors: ['grey']
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+
+    <div id="columnchart_material" style="width: 800px; height: 500px; margin-right: auto; margin-left: auto"></div>
+    <br/>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script th:inline="javascript">
+
+        var da0 = [[${dates.get(0)}]];
+        var da1 = [[${dates.get(1)}]];
+        var da2 = [[${dates.get(2)}]];
+        var da3 = [[${dates.get(3)}]];
+        var da4 = [[${dates.get(4)}]];
+        var da5 = [[${dates.get(5)}]];
+        var da6 = [[${dates.get(6)}]];
+        var da7 = [[${dates.get(7)}]];
+        var da8 = [[${dates.get(8)}]];
+        var da9 = [[${dates.get(9)}]];
+        var da10 = [[${dates.get(10)}]];
+        var da11 = [[${dates.get(11)}]];
+        var da12 = [[${dates.get(12)}]];
+        var da13 = [[${dates.get(13)}]];
+
+        var d0 = [[${deaths.get(0)}]];
+        var d1 = [[${deaths.get(1)}]];
+        var d2 = [[${deaths.get(2)}]];
+        var d3 = [[${deaths.get(3)}]];
+        var d4 = [[${deaths.get(4)}]];
+        var d5 = [[${deaths.get(5)}]];
+        var d6 = [[${deaths.get(6)}]];
+        var d7 = [[${deaths.get(7)}]];
+        var d8 = [[${deaths.get(8)}]];
+        var d9 = [[${deaths.get(9)}]];
+        var d10 = [[${deaths.get(10)}]];
+        var d11 = [[${deaths.get(11)}]];
+        var d12 = [[${deaths.get(12)}]];
+        var d13 = [[${deaths.get(13)}]];
+
+        google.charts.load('current', {'packages': ['bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+
+                ['Date', 'Total deaths'],
+                [da13, d13],
+                [da12, d12],
+                [da11, d11],
+                [da10, d10],
+                [da9, d9],
+                [da8, d8],
+                [da7, d7],
+                [da6, d6],
+                [da5, d5],
+                [da4, d4],
+                [da3, d3],
+                [da2, d2],
+                [da1, d1],
+                [da0, d0]
+            ]);
+
+
+            var options = {
+                chart: {
+                    title: 'Covid-19 deaths graph',
+                    subtitle: da13 + '-' + da0,
+                },
+                colors: ['red']
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material2'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+
+    <div id="columnchart_material2" style="width: 800px; height: 500px; margin-left: auto; margin-right: auto"></div>
+
+    <br/>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script th:inline="javascript">
+
+        var da0 = [[${dates.get(0)}]];
+        var da1 = [[${dates.get(1)}]];
+        var da2 = [[${dates.get(2)}]];
+        var da3 = [[${dates.get(3)}]];
+        var da4 = [[${dates.get(4)}]];
+        var da5 = [[${dates.get(5)}]];
+        var da6 = [[${dates.get(6)}]];
+        var da7 = [[${dates.get(7)}]];
+        var da8 = [[${dates.get(8)}]];
+        var da9 = [[${dates.get(9)}]];
+        var da10 = [[${dates.get(10)}]];
+        var da11 = [[${dates.get(11)}]];
+        var da12 = [[${dates.get(12)}]];
+        var da13 = [[${dates.get(13)}]];
+
+        var r0 = [[${recovered.get(0)}]];
+        var r1 = [[${recovered.get(1)}]];
+        var r2 = [[${recovered.get(2)}]];
+        var r3 = [[${recovered.get(3)}]];
+        var r4 = [[${recovered.get(4)}]];
+        var r5 = [[${recovered.get(5)}]];
+        var r6 = [[${recovered.get(6)}]];
+        var r7 = [[${recovered.get(7)}]];
+        var r8 = [[${recovered.get(8)}]];
+        var r9 = [[${recovered.get(9)}]];
+        var r10 = [[${recovered.get(10)}]];
+        var r11 = [[${recovered.get(11)}]];
+        var r12 = [[${recovered.get(12)}]];
+        var r13 = [[${recovered.get(13)}]];
+
+        google.charts.load('current', {'packages': ['bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+
+                ['Date', 'Total recovered'],
+                [da13, r13],
+                [da12, r12],
+                [da11, r11],
+                [da10, r10],
+                [da9, r9],
+                [da8, r8],
+                [da7, r7],
+                [da6, r6],
+                [da5, r5],
+                [da4, r4],
+                [da3, r3],
+                [da2, r2],
+                [da1, r1],
+                [da0, r0]
+            ]);
+
+
+            var options = {
+                chart: {
+                    title: 'Covid-19 recovered graph',
+                    subtitle: da13 + '-' + da0,
+                },
+                colors: ['green']
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material3'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+
+    <div id="columnchart_material3" style="width: 800px; height: 500px; margin-left: auto; margin-right: auto"></div>
+
+    <br/>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script th:inline="javascript">
+
+        var da0 = [[${dates.get(0)}]];
+        var da1 = [[${dates.get(1)}]];
+        var da2 = [[${dates.get(2)}]];
+        var da3 = [[${dates.get(3)}]];
+        var da4 = [[${dates.get(4)}]];
+        var da5 = [[${dates.get(5)}]];
+        var da6 = [[${dates.get(6)}]];
+        var da7 = [[${dates.get(7)}]];
+        var da8 = [[${dates.get(8)}]];
+        var da9 = [[${dates.get(9)}]];
+        var da10 = [[${dates.get(10)}]];
+        var da11 = [[${dates.get(11)}]];
+        var da12 = [[${dates.get(12)}]];
+        var da13 = [[${dates.get(13)}]];
+
+        var r0 = [[${recovered.get(0)}]];
+        var r1 = [[${recovered.get(1)}]];
+        var r2 = [[${recovered.get(2)}]];
+        var r3 = [[${recovered.get(3)}]];
+        var r4 = [[${recovered.get(4)}]];
+        var r5 = [[${recovered.get(5)}]];
+        var r6 = [[${recovered.get(6)}]];
+        var r7 = [[${recovered.get(7)}]];
+        var r8 = [[${recovered.get(8)}]];
+        var r9 = [[${recovered.get(9)}]];
+        var r10 = [[${recovered.get(10)}]];
+        var r11 = [[${recovered.get(11)}]];
+        var r12 = [[${recovered.get(12)}]];
+        var r13 = [[${recovered.get(13)}]];
+
+        var d0 = [[${deaths.get(0)}]];
+        var d1 = [[${deaths.get(1)}]];
+        var d2 = [[${deaths.get(2)}]];
+        var d3 = [[${deaths.get(3)}]];
+        var d4 = [[${deaths.get(4)}]];
+        var d5 = [[${deaths.get(5)}]];
+        var d6 = [[${deaths.get(6)}]];
+        var d7 = [[${deaths.get(7)}]];
+        var d8 = [[${deaths.get(8)}]];
+        var d9 = [[${deaths.get(9)}]];
+        var d10 = [[${deaths.get(10)}]];
+        var d11 = [[${deaths.get(11)}]];
+        var d12 = [[${deaths.get(12)}]];
+        var d13 = [[${deaths.get(13)}]];
+
+        var c0 = [[${confirmed.get(0)}]];
+        var c1 = [[${confirmed.get(1)}]];
+        var c2 = [[${confirmed.get(2)}]];
+        var c3 = [[${confirmed.get(3)}]];
+        var c4 = [[${confirmed.get(4)}]];
+        var c5 = [[${confirmed.get(5)}]];
+        var c6 = [[${confirmed.get(6)}]];
+        var c7 = [[${confirmed.get(7)}]];
+        var c8 = [[${confirmed.get(8)}]];
+        var c9 = [[${confirmed.get(9)}]];
+        var c10 = [[${confirmed.get(10)}]];
+        var c11 = [[${confirmed.get(11)}]];
+        var c12 = [[${confirmed.get(12)}]];
+        var c13 = [[${confirmed.get(13)}]];
+
+        google.charts.load('current', {'packages': ['bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+
+                ['Date', 'Total confirmed', 'Total Death', 'Total recovered'],
+                [da13, c13, d13, r13],
+                [da12, c12, d12, r12],
+                [da11, c11, d11, r11],
+                [da10, c10, d10, r10],
+                [da9, c9, d9, r9],
+                [da8, c8, d8, r8],
+                [da7, c7, d7, r7],
+                [da6, c6, d6, r6],
+                [da5, c5, d5, r5],
+                [da4, c4, d4, r4],
+                [da3, c3, d3, r3],
+                [da2, c2, d2, r2],
+                [da1, c1, d1, r1],
+                [da0, c0, d0, r0]
+            ]);
+
+
+            var options = {
+                chart: {
+                    title: 'Covid-19 total graph',
+                    subtitle: da13 + '-' + da0,
+                },
+                colors: ['grey','red','green']
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material4'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+
+    <div id="columnchart_material4" style="width: 800px; height: 500px; margin-left: auto; margin-right: auto"></div>
+<br/>
+<br/>
+<br/>
+<br/>
+    <div style="text-align: center; font-size: 60px"><b>#STAYHOME, #STAYATHOME, #STAYHOMECHALLENGE </b></div>
+    <br/>
+    <br/>
 </main>
 <!-- /.container -->
 

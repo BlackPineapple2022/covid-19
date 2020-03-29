@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>WORLD COVID-19 ONLINE STATS</title>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" th:href="@{/}">STAYHOME.BY | COVID-19 CORONAVIRUS PANDEMIC ONLINE INFO </a>
+</nav>
+
+<main role="main" class="container">
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div style="font-size: 40px; text-align: center"> Coronavirus (COVID-19) statistic</div>
+    <div style="font-size: 40px; text-align: center"> [[${stats.getCountry().getName()}]]</div>
+    <br/>
+    <table class="table text-center border">
+        <thead>
+        <tr>
+            <td><span style="font-size: 24px">Country</span></td>
+            <td><span style="font-size: 24px" th:text="${stats.getCountry().getName()}"></span></td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td><span style="font-size: 24px">Total confirmed</span></td>
+            <td><span style="font-size: 24px" th:text="${stats.getConfirmed()}"></span></td>
+        </tr>
+
+        <tr>
+            <td><span style="font-size: 24px; color: red">Total deaths</span></td>
+            <td><span style="font-size: 24px; color: red" th:text="${stats.getDeath()}"></span></td>
+        </tr>
+
+        <tr>
+            <td><span style="font-size: 24px; color: green">Total recovered</span></td>
+            <td><span style="color: green; font-size: 24px" th:text="${stats.getRecovered()}"></span></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <br/>
+    <div style="text-align: center">
+
+        <form method="POST" action="/">
+            <select id="countryName" name="countryName">
+                <option th:each="country:${countries}"><span th:text="${country.getName()}"></span>
+                </option>
+            </select>
+            <button class="button" type="submit">
+                GO
+            </button>
+        </form>
+
+    </div>
+    <br/>
+    <div style="text-align: center; font-size: 60px"><b>#STAYHOME, #STAYATHOME, #STAYHOMECHALLENGE </b></div>
+</main>
+<!-- /.container -->
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</body>
+</html>
